@@ -263,7 +263,7 @@ export function DataPrivacyTab() {
                 </div>
               </div>
               <Button
-                variant="error"
+                variant="danger"
                 size="sm"
                 onClick={handleClearData}
               >
@@ -286,7 +286,7 @@ export function DataPrivacyTab() {
                 </div>
               </div>
               <Button
-                variant="error"
+                variant="danger"
                 size="sm"
                 onClick={handleDeleteAccount}
               >

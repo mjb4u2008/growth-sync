@@ -170,7 +170,7 @@ export function RevenueCathedral({ delay = 0 }: RevenueCathedralProps) {
                 fontFamily: "var(--font-mono)",
                 fontSize: "12px",
               }}
-              formatter={(value: number) => formatCurrency(value)}
+              formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ""}
             />
 
             {/* Stacked areas for each platform */}

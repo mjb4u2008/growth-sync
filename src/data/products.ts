@@ -22,7 +22,7 @@ function getRandomPlatforms(): Platform[] {
 
 // Helper for sync status
 function getRandomSyncStatus(): {
-  status: SyncStatus;
+  syncStatus: SyncStatus;
   lastSyncedAt: Date;
 } {
   const statuses: SyncStatus[] = ["synced", "synced", "synced", "syncing", "error"];
@@ -37,7 +37,7 @@ function getRandomSyncStatus(): {
     lastSyncedAt = subMinutes(new Date(), Math.random() * 30);
   }
 
-  return { status, lastSyncedAt };
+  return { syncStatus: status, lastSyncedAt };
 }
 
 export const products: Product[] = [
@@ -358,7 +358,7 @@ for (let i = 26; i <= 100; i++) {
   const categories = ["Apparel", "Footwear", "Accessories"];
   const category = categories[Math.floor(Math.random() * categories.length)];
 
-  const apparel Names = [
+  const apparelNames = [
     "Performance Tee",
     "Athletic Hoodie",
     "Zip Jacket",

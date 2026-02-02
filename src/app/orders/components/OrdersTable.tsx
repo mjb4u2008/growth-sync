@@ -96,7 +96,7 @@ export function OrdersTable() {
 
       {/* Table Body */}
       {orders.length > 0 ? (
-        <StaggerList stagger={0.03}>
+        <StaggerList stagger="tight">
           {orders.map((order) => (
             <OrderRow key={order.id} order={order} />
           ))}

@@ -111,7 +111,7 @@ export function RevenueChart() {
                 borderRadius: "8px",
                 fontSize: "12px",
               }}
-              formatter={(value: number) => formatCurrency(value)}
+              formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ""}
             />
             {visiblePlatforms.map((platform) => (
               <Area

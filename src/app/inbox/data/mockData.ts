@@ -60,14 +60,14 @@ export const mockConversations: Conversation[] = tickets.map((ticket) => {
   const slaHours = ticket.priority === "urgent" ? 1 : ticket.priority === "high" ? 4 : ticket.priority === "medium" ? 8 : 24;
 
   // Map customer badges from tags
-  const badges: CustomerBadgeType[] = (ticket.customer.tags || [])
+  const badges = (ticket.customer.tags || [])
     .map((tag) => {
-      if (tag === "VIP") return "vip";
-      if (tag === "Influencer") return "influencer";
-      if (tag === "Repeat Customer") return "repeat";
+      if (tag === "VIP") return "vip" as const;
+      if (tag === "Influencer") return "influencer" as const;
+      if (tag === "Repeat Customer") return "repeat" as const;
       return null;
     })
-    .filter((badge): badge is CustomerBadgeType => badge !== null);
+    .filter((badge) => badge !== null) as CustomerBadgeType[];
 
   // If no badges from tags, assign "new" for first-time customers
   if (badges.length === 0 && !ticket.assignedTo) {
@@ -154,6 +154,9 @@ export const mockConversations: Conversation[] = tickets.map((ticket) => {
     pastConversations
   };
 
+  // Map SLA status from data/types.ts format to inbox/types.ts format
+  const slaStatus = ticket.slaStatus === "on_track" ? "healthy" : ticket.slaStatus;
+
   return {
     id: ticket.id,
     customer,
@@ -161,7 +164,7 @@ export const mockConversations: Conversation[] = tickets.map((ticket) => {
     preview: ticket.preview,
     channel: channelMap[ticket.channel] || "email",
     queue,
-    slaStatus: ticket.slaStatus,
+    slaStatus,
     messages,
     aiDraft,
     unread: ticket.unread,

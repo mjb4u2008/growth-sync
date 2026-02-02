@@ -142,7 +142,7 @@ export function PlatformConnectionCard({
               {integration.lastSyncedAt && (
                 <p className="text-xs text-[var(--text-secondary)]">
                   <span className="font-medium">Last synced:</span>{" "}
-                  {formatRelativeTime(integration.lastSyncedAt)}
+                  {formatRelativeTime(new Date(integration.lastSyncedAt))}
                 </p>
               )}
               {integration.stats && (

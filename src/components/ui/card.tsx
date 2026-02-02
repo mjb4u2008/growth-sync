@@ -4,7 +4,15 @@ import { HTMLAttributes, forwardRef } from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  | "onDrag"
+  | "onDragStart"
+  | "onDragEnd"
+  | "onAnimationStart"
+  | "onAnimationEnd"
+  | "onAnimationIteration"
+> {
   /**
    * Enable hover lift effect
    */
@@ -56,7 +64,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
           ? "0 8px 30px rgba(34, 168, 97, 0.15)"
           : "0 12px 40px rgba(26, 26, 26, 0.08)",
       },
-      transition: { type: "spring", stiffness: 400, damping: 25 },
+      transition: { type: "spring" as const, stiffness: 400, damping: 25 },
     };
 
     const MotionDiv = motion.div as React.ForwardRefExoticComponent<

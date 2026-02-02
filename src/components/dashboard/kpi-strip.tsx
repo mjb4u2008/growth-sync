@@ -41,10 +41,10 @@ function KPICell({ kpi }: { kpi: KPI }) {
       : formatNumber(kpi.value);
 
   // Transform sparkline data for Recharts
-  const sparklineData = kpi.sparklineData.map((value, index) => ({
+  const sparklineData = kpi.sparklineData?.map((value, index) => ({
     index,
     value,
-  }));
+  })) || [];
 
   return (
     <div className="px-6 py-4">
