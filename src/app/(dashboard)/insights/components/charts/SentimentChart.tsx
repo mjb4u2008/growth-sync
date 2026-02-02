@@ -25,7 +25,8 @@ export function SentimentChart({ data, issues }: SentimentChartProps) {
   return (
     <div className="mt-4">
       {/* Pie Chart */}
-      <ResponsiveContainer width="100%" height={280}>
+      <div className="h-[220px] sm:h-[250px] lg:h-[280px]">
+        <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
             data={data}
@@ -61,6 +62,7 @@ export function SentimentChart({ data, issues }: SentimentChartProps) {
           />
         </PieChart>
       </ResponsiveContainer>
+      </div>
 
       {/* Issues List (if provided) */}
       {issues && issues.length > 0 && (

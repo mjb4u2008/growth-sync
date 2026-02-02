@@ -10,6 +10,7 @@ interface InboxState {
   searchQuery: string;
   isArchiving: boolean;
   isReplying: boolean;
+  mobileView: "list" | "detail" | "customer";
 
   setSelectedConversation: (id: string | null) => void;
   setCurrentQueue: (queue: Queue) => void;
@@ -17,6 +18,7 @@ interface InboxState {
   archiveConversation: (id: string) => void;
   replyToConversation: (id: string, content: string) => void;
   assignConversation: (id: string, agent: string) => void;
+  setMobileView: (view: "list" | "detail" | "customer") => void;
 
   getFilteredConversations: () => Conversation[];
   getQueueCounts: () => Record<Queue, number>;
@@ -30,6 +32,7 @@ export const useInboxState = create<InboxState>((set, get) => ({
   searchQuery: "",
   isArchiving: false,
   isReplying: false,
+  mobileView: "list",
 
   setSelectedConversation: (id) => {
     console.log('[Store] setSelectedConversation called with:', id);
@@ -37,6 +40,7 @@ export const useInboxState = create<InboxState>((set, get) => ({
   },
   setCurrentQueue: (queue) => set({ currentQueue: queue }),
   setSearchQuery: (query) => set({ searchQuery: query }),
+  setMobileView: (view) => set({ mobileView: view }),
 
   // Optimistic update: UI instantly updates, simulate 200ms network delay
   archiveConversation: (id) => {

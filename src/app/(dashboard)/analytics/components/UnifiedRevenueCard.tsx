@@ -55,7 +55,7 @@ export function UnifiedRevenueCard() {
         </div>
 
         {/* Stacked area chart */}
-        <div className="h-[180px] mb-4">
+        <div className="h-[140px] sm:h-[160px] lg:h-[180px] mb-4">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={platformRevenueSeries}>
               <defs>

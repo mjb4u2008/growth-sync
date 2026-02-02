@@ -72,7 +72,7 @@ export function RevenueChart() {
       </div>
 
       {/* Chart */}
-      <div className="h-[320px] mb-4">
+      <div className="h-[200px] sm:h-[240px] lg:h-[320px] mb-4">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={filteredData}

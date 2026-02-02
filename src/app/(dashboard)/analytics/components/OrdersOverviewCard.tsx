@@ -61,7 +61,7 @@ export function OrdersOverviewCard() {
         </div>
 
         {/* Mini bar chart */}
-        <div className="h-[120px]">
+        <div className="h-[100px] sm:h-[110px] lg:h-[120px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={ordersLast7Days}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" opacity={0.5} />

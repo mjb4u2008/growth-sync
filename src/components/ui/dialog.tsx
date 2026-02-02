@@ -72,7 +72,10 @@ const DialogContent = React.forwardRef<
       >
         <motion.div
           className={cn(
-            "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg gap-4 border border-border bg-bg-card p-6 shadow-lg sm:rounded-lg",
+            "fixed left-[50%] top-[50%] z-50 grid w-full gap-4 border border-border bg-bg-card shadow-lg sm:rounded-lg",
+            "p-4 sm:p-6",
+            "max-w-[calc(100vw-2rem)] sm:max-w-lg",
+            "max-h-[90vh] overflow-y-auto",
             className
           )}
           initial={{ opacity: 0, scale: 0.95, x: "-50%", y: "-50%" }}

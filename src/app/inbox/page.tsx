@@ -22,9 +22,11 @@ export default function InboxPage() {
   const selectedConversationId = useInboxState(state => state.selectedConversationId);
   const currentQueue = useInboxState(state => state.currentQueue);
   const searchQuery = useInboxState(state => state.searchQuery);
+  const mobileView = useInboxState(state => state.mobileView);
   const setCurrentQueue = useInboxState(state => state.setCurrentQueue);
   const archiveConversation = useInboxState(state => state.archiveConversation);
   const setSelectedConversation = useInboxState(state => state.setSelectedConversation);
+  const setMobileView = useInboxState(state => state.setMobileView);
 
   // Filter conversations locally (reactive)
   const conversations = React.useMemo(() => {
@@ -103,15 +105,15 @@ export default function InboxPage() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-page)]">
-      <div className="px-8 py-8 max-w-[1800px] mx-auto flex flex-col h-[calc(100vh-0px)]">
+      <div className="px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-[1800px] mx-auto flex flex-col h-[calc(100vh-0px)]">
         {/* Header with stats */}
         <InboxHeader />
 
         {/* Toolbar with queue tabs and search */}
         <InboxToolbar />
 
-        {/* Main content area - 3 panels in a container */}
-        <div className="flex-1 overflow-hidden">
+        {/* Desktop: 3-panel layout */}
+        <div className="hidden lg:block flex-1 overflow-hidden">
           <motion.div
             className="h-full bg-white rounded-xl border border-[var(--border)] shadow-sm overflow-hidden flex"
             initial={{ opacity: 0, y: 20 }}
@@ -139,6 +141,49 @@ export default function InboxPage() {
               >
                 <CustomerPanel customer={selectedConversation.customer} />
               </motion.div>
+            )}
+          </motion.div>
+        </div>
+
+        {/* Mobile: Single-panel with navigation */}
+        <div className="lg:hidden flex-1 overflow-hidden">
+          <motion.div
+            className="h-full bg-white rounded-xl border border-[var(--border)] shadow-sm overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={springConfigs.gentle}
+          >
+            {mobileView === "list" && (
+              <ConversationList
+                onSelectConversation={(id) => {
+                  setSelectedConversation(id);
+                  setMobileView("detail");
+                }}
+              />
+            )}
+            {mobileView === "detail" && (
+              <ConversationDetail
+                onBack={() => setMobileView("list")}
+                onViewCustomer={() => setMobileView("customer")}
+              />
+            )}
+            {mobileView === "customer" && selectedConversation && (
+              <div className="h-full flex flex-col">
+                <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--border)]">
+                  <button
+                    onClick={() => setMobileView("detail")}
+                    className="p-2 -ml-2 hover:bg-[var(--bg-secondary)] rounded-lg transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <h2 className="text-lg font-semibold">Customer Info</h2>
+                </div>
+                <div className="flex-1 overflow-auto">
+                  <CustomerPanel customer={selectedConversation.customer} />
+                </div>
+              </div>
             )}
           </motion.div>
         </div>

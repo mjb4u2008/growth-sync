@@ -72,7 +72,7 @@ export function InboxHeader() {
         </motion.div>
 
         <motion.div
-          className="flex items-center gap-3"
+          className="hidden sm:flex items-center gap-3"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...springConfigs.gentle, delay: 0.1 }}
@@ -95,7 +95,7 @@ export function InboxHeader() {
       </div>
 
       {/* Stats cards */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((stat, index) => (
           <motion.div
             key={stat.label}

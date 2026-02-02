@@ -55,7 +55,7 @@ export function RevenueByPlatformCard() {
         </div>
 
         {/* Stacked area chart - reduced height for side-by-side layout */}
-        <div className="h-[200px] mb-4">
+        <div className="h-[160px] sm:h-[180px] lg:h-[200px] mb-4">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={platformRevenueSeries}>
               <defs>

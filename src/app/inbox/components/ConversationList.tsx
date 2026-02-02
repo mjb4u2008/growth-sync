@@ -5,13 +5,22 @@ import { Inbox, Search } from "lucide-react";
 import { ConversationItem } from "./ConversationItem";
 import { useInboxState } from "../hooks/useInboxState";
 
-export function ConversationList() {
+interface ConversationListProps {
+  onSelectConversation?: (id: string) => void;
+}
+
+export function ConversationList({ onSelectConversation }: ConversationListProps = {}) {
   // ✅ Use individual selectors for reactivity
   const allConversations = useInboxState(state => state.conversations);
   const selectedConversationId = useInboxState(state => state.selectedConversationId);
   const setSelectedConversation = useInboxState(state => state.setSelectedConversation);
   const searchQuery = useInboxState(state => state.searchQuery);
   const currentQueue = useInboxState(state => state.currentQueue);
+
+  const handleSelectConversation = (id: string) => {
+    setSelectedConversation(id);
+    onSelectConversation?.(id);
+  };
 
   // Filter conversations locally (reactive)
   const conversations = React.useMemo(() => {
@@ -63,7 +72,7 @@ export function ConversationList() {
           key={conversation.id}
           conversation={conversation}
           isSelected={conversation.id === selectedConversationId}
-          onClick={() => setSelectedConversation(conversation.id)}
+          onClick={() => handleSelectConversation(conversation.id)}
         />
       ))}
     </div>

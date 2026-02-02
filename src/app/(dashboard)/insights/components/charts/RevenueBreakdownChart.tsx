@@ -27,7 +27,8 @@ interface RevenueBreakdownChartProps {
 export function RevenueBreakdownChart({ data }: RevenueBreakdownChartProps) {
   return (
     <div className="mt-4">
-      <ResponsiveContainer width="100%" height={300}>
+      <div className="h-[240px] sm:h-[270px] lg:h-[300px]">
+        <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
           <XAxis
@@ -62,6 +63,7 @@ export function RevenueBreakdownChart({ data }: RevenueBreakdownChartProps) {
           <Bar dataKey="orders" fill="#3B82F6" name="Orders" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
+      </div>
     </div>
   );
 }

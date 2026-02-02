@@ -52,11 +52,11 @@ export function RateShoppingModal() {
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none"
           >
             <div
-              className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden pointer-events-auto"
+              className="bg-white rounded-2xl shadow-xl w-full max-w-[calc(100vw-2rem)] sm:max-w-lg overflow-hidden pointer-events-auto"
               onClick={e => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900">
                     Buy Shipping Labels
@@ -74,7 +74,7 @@ export function RateShoppingModal() {
               </div>
 
               {/* Content */}
-              <div className="p-6 max-h-[60vh] overflow-y-auto">
+              <div className="p-4 sm:p-6 max-h-[60vh] overflow-y-auto">
                 {/* Orders Summary */}
                 <div className="mb-6 p-4 bg-gray-50 rounded-xl">
                   <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">
@@ -120,7 +120,7 @@ export function RateShoppingModal() {
 
               {/* Footer */}
               {selectedRate && (
-                <div className="p-6 border-t border-gray-200 bg-gray-50">
+                <div className="p-4 sm:p-6 border-t border-gray-200 bg-gray-50">
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-sm text-gray-500">Total Cost</span>
                     <span className="text-2xl font-bold font-mono text-[#22A861]">

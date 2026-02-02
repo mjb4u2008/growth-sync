@@ -36,7 +36,7 @@ export function InventorySnapshot() {
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         {/* Out of Stock */}
         <div className="text-center">
           <div className="flex items-center justify-center mb-2">

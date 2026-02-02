@@ -18,7 +18,7 @@ export default function InsightsPage() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-page)]">
-      <div className="px-8 py-8 max-w-[1800px] mx-auto flex flex-col h-[calc(100vh-0px)]">
+      <div className="px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-[1800px] mx-auto flex flex-col h-[calc(100vh-0px)]">
         {/* Header */}
         <motion.div
           className="mb-6"

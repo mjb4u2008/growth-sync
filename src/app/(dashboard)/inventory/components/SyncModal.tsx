@@ -62,7 +62,7 @@ export function SyncModal() {
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <motion.div
-          className="bg-white rounded-xl shadow-lg w-full max-w-md pointer-events-auto"
+          className="bg-white rounded-xl shadow-lg w-full max-w-[calc(100vw-2rem)] sm:max-w-md pointer-events-auto"
           onClick={(e) => e.stopPropagation()}
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -70,7 +70,7 @@ export function SyncModal() {
           transition={springConfigs.bouncy}
         >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border)]">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[var(--border)]">
           <h2 className="text-lg font-semibold text-[var(--text-primary)]">
             Sync to {platformNames[syncPlatform]}
           </h2>
@@ -83,7 +83,7 @@ export function SyncModal() {
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-4">
+        <div className="p-4 sm:p-6 space-y-4">
           {/* Product Info */}
           <div className="p-3 bg-[var(--bg-secondary)] rounded-lg">
             <div className="font-medium text-sm text-[var(--text-primary)]">

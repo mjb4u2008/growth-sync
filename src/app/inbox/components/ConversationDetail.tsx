@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { MessageSquare, Archive, UserPlus } from "lucide-react";
+import { MessageSquare, Archive, UserPlus, ChevronLeft, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ChannelBadge } from "./ChannelBadge";
 import { SLABadge } from "./SLABadge";
@@ -11,7 +11,12 @@ import { ReplyComposer } from "./ReplyComposer";
 import { useInboxState } from "../hooks/useInboxState";
 import { formatRelativeTime } from "@/lib/utils";
 
-export function ConversationDetail() {
+interface ConversationDetailProps {
+  onBack?: () => void;
+  onViewCustomer?: () => void;
+}
+
+export function ConversationDetail({ onBack, onViewCustomer }: ConversationDetailProps = {}) {
   // ✅ Use individual selectors for reactivity
   const allConversations = useInboxState(state => state.conversations);
   const selectedConversationId = useInboxState(state => state.selectedConversationId);
@@ -133,36 +138,58 @@ export function ConversationDetail() {
       className="h-full flex flex-col"
     >
       {/* Header */}
-      <div className="px-6 py-3 border-b border-[var(--border)]">
+      <div className="px-3 sm:px-6 py-3 border-b border-[var(--border)]">
         <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-1">
-              <h2 className="text-lg font-semibold font-display text-[var(--text-primary)]">
-                {conversation.subject}
-              </h2>
-              <ChannelBadge channel={conversation.channel} />
-              <SLABadge status={conversation.slaStatus} deadline={conversation.slaDeadline} />
+          <div className="flex items-start gap-2 flex-1 min-w-0">
+            {/* Mobile back button */}
+            {onBack && (
+              <button
+                onClick={onBack}
+                className="lg:hidden p-2 -ml-2 hover:bg-[var(--bg-secondary)] rounded-lg transition-colors flex-shrink-0"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+            )}
+
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 sm:gap-3 mb-1 flex-wrap">
+                <h2 className="text-base sm:text-lg font-semibold font-display text-[var(--text-primary)] truncate">
+                  {conversation.subject}
+                </h2>
+                <ChannelBadge channel={conversation.channel} />
+                <SLABadge status={conversation.slaStatus} deadline={conversation.slaDeadline} />
+              </div>
+              <p className="text-xs text-[var(--text-secondary)]">
+                {conversation.messages.length} message{conversation.messages.length !== 1 ? 's' : ''} · Last updated {formatRelativeTime(conversation.updatedAt)}
+              </p>
             </div>
-            <p className="text-xs text-[var(--text-secondary)]">
-              {conversation.messages.length} message{conversation.messages.length !== 1 ? 's' : ''} · Last updated {formatRelativeTime(conversation.updatedAt)}
-            </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" onClick={handleArchive}>
-              <Archive className="h-4 w-4 mr-2" />
-              Archive
-            </Button>
-            <Button variant="ghost" size="sm">
-              <UserPlus className="h-4 w-4 mr-2" />
-              Assign
-            </Button>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Mobile customer info button */}
+            {onViewCustomer && (
+              <Button variant="ghost" size="sm" onClick={onViewCustomer} className="lg:hidden">
+                <User className="h-4 w-4" />
+              </Button>
+            )}
+
+            {/* Desktop actions */}
+            <div className="hidden sm:flex items-center gap-2">
+              <Button variant="ghost" size="sm" onClick={handleArchive}>
+                <Archive className="h-4 w-4 mr-2" />
+                Archive
+              </Button>
+              <Button variant="ghost" size="sm">
+                <UserPlus className="h-4 w-4 mr-2" />
+                Assign
+              </Button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Messages + Reply (scrollable together) */}
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-6">
         {conversation.messages.map((message) => (
           <MessageBubble key={message.id} message={message} />
         ))}

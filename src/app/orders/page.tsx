@@ -124,7 +124,7 @@ export default function OrdersPage() {
   });
 
   return (
-    <div className="px-8 py-8 max-w-[1800px] mx-auto">
+    <div className="px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-[1800px] mx-auto">
       <PageHeader />
       <FilterBar />
       <OrdersTable />

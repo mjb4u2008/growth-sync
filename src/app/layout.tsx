@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { LayoutContent } from "./layout-content";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-display",
@@ -28,8 +29,6 @@ export const metadata: Metadata = {
   description: "Everything in sync. A unified operating system for multi-channel e-commerce.",
 };
 
-import { Sidebar } from "@/components/layout/sidebar";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,10 +39,7 @@ export default function RootLayout({
       <body
         className={`${plusJakarta.variable} ${dmSans.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        <Sidebar />
-        <main className="ml-60 min-h-screen">
-          {children}
-        </main>
+        <LayoutContent>{children}</LayoutContent>
       </body>
     </html>
   );
