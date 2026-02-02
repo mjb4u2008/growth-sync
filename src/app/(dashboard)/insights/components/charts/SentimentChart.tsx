@@ -34,7 +34,7 @@ export function SentimentChart({ data, issues }: SentimentChartProps) {
             cx="50%"
             cy="50%"
             outerRadius={90}
-            label={({ percentage }) => `${percentage}%`}
+            label={(entry: any) => `${((entry.value / data.reduce((sum, d) => sum + d.value, 0)) * 100).toFixed(0)}%`}
             labelLine={false}
           >
             {data.map((entry, index) => (
@@ -42,9 +42,9 @@ export function SentimentChart({ data, issues }: SentimentChartProps) {
             ))}
           </Pie>
           <Tooltip
-            formatter={(value: number, name: string) => [
-              `${value} reviews`,
-              name,
+            formatter={(value: number | undefined, name: string | undefined) => [
+              `${value ?? 0} reviews`,
+              name ?? "",
             ]}
             contentStyle={{
               backgroundColor: "white",

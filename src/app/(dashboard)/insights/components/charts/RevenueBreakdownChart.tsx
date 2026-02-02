@@ -41,8 +41,8 @@ export function RevenueBreakdownChart({ data }: RevenueBreakdownChartProps) {
             axisLine={{ stroke: "var(--border)" }}
           />
           <Tooltip
-            formatter={(value: number, name: string) => [
-              name === "revenue" ? formatCurrency(value) : value,
+            formatter={(value: number | undefined, name: string | undefined) => [
+              name === "revenue" && value !== undefined ? formatCurrency(value) : value ?? 0,
               name === "revenue" ? "Revenue" : "Orders",
             ]}
             contentStyle={{

@@ -134,8 +134,39 @@ export const useInventoryState = create<InventoryState>((set, get) => ({
   },
 
   selectAllProducts: () => {
-    const { getFilteredProducts } = get();
-    const allIds = getFilteredProducts().map((p) => p.id);
+    const { products, filters } = get();
+    // Filter products based on current filters
+    let filtered = products;
+
+    if (filters.search) {
+      filtered = filtered.filter((p) =>
+        p.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+        p.sku.toLowerCase().includes(filters.search.toLowerCase())
+      );
+    }
+
+    if (filters.platform && filters.platform !== "all") {
+      filtered = filtered.filter((p) =>
+        p.platforms.some((plat) => plat.platform === filters.platform)
+      );
+    }
+
+    if (filters.status && filters.status !== "all") {
+      // Determine status based on ats (available to sell)
+      if (filters.status === "out_of_stock") {
+        filtered = filtered.filter((p) => p.ats === 0);
+      } else if (filters.status === "low_stock") {
+        filtered = filtered.filter((p) => p.ats > 0 && p.ats <= p.safetyStock);
+      } else if (filters.status === "in_stock") {
+        filtered = filtered.filter((p) => p.ats > p.safetyStock);
+      } else if (filters.status === "out_of_sync") {
+        filtered = filtered.filter((p) =>
+          p.platforms.some((plat) => plat.syncStatus === "out_of_sync")
+        );
+      }
+    }
+
+    const allIds = filtered.map((p) => p.id);
     set({ selectedProducts: new Set(allIds) });
   },
 
@@ -175,12 +206,13 @@ export const useInventoryState = create<InventoryState>((set, get) => ({
         if (p.id === productId) {
           const newAts = Math.max(0, p.ats + adjustment);
           const newOnHand = Math.max(0, p.onHand + adjustment);
+          const freshnessConfidence: "RED" | "YELLOW" | "GREEN" =
+            newAts === 0 ? "RED" : newAts < p.safetyStock ? "YELLOW" : "GREEN";
           return {
             ...p,
             ats: newAts,
             onHand: newOnHand,
-            freshnessConfidence:
-              newAts === 0 ? "RED" : newAts < p.safetyStock ? "YELLOW" : "GREEN",
+            freshnessConfidence,
           };
         }
         return p;

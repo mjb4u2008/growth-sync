@@ -64,7 +64,7 @@ export function PlatformComparisonCard() {
                     <span className="text-sm font-medium font-mono text-[var(--text-primary)]">
                       {formatCurrency(platform.revenue)}
                     </span>
-                    <TrendIndicator value={platform.growth} size="sm" />
+                    <TrendIndicator value={platform.growth} />
                     {platform.growth > 20 && (
                       <span className="text-base" title="Hot channel!">
                         🔥

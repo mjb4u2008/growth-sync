@@ -84,7 +84,7 @@ export function RevenueByPlatformCard() {
                 tickLine={false}
               />
               <Tooltip
-                formatter={(value: number) => formatCurrency(value)}
+                formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ""}
                 contentStyle={{
                   backgroundColor: "white",
                   border: "1px solid var(--border)",
