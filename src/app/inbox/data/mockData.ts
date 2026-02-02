@@ -124,7 +124,19 @@ export const mockConversations: Conversation[] = tickets.map((ticket) => {
   } : undefined;
 
   // Find matching orders for customer (simple mock - randomly assign 1-3 orders)
-  const customerOrders = orders.slice(0, Math.floor(Math.random() * 3) + 1);
+  // Transform orders from data/types.ts Order to inbox/types.ts Order format
+  const customerOrders = orders.slice(0, Math.floor(Math.random() * 3) + 1).map((order) => ({
+    id: order.id,
+    orderNumber: order.orderNumber,
+    total: order.total,
+    status: order.status,
+    createdAt: order.createdAt,
+    items: order.items.map((item) => ({
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price
+    }))
+  }));
 
   // Generate past conversations for repeat/VIP customers
   const pastConversations = generatePastConversations(badges, ticket.customer.name);
