@@ -1,26 +1,166 @@
 @import "tailwindcss";
 
+/* Swap Commerce-Inspired Professional Design System */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds - Warm cream, professional */
+  --bg-page: #FAFAF8;
+  --bg-card: #FFFFFF;
+  --bg-sidebar: #FAFAF8;
+  --bg-primary: #FAFAF8;
+  --bg-secondary: #F5F4F0;
+
+  /* Accent - Money Green (use sparingly) */
+  --accent: #22A861;
+  --accent-light: #E8F5EC;
+  --accent-muted: #22A86115;  /* 15% opacity for subtle hover/selected */
+  --accent-dark: #1A8A4F;
+
+  /* Text hierarchy */
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+
+  /* Borders - Clean and subtle */
+  --border: #E5E7EB;
+  --border-subtle: #F3F4F6;
+  --border-hover: #D1D5DB;
+
+  /* Status colors */
+  --success: #22A861;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #3B82F6;
+
+  /* Shadows - Subtle, professional */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+  /* Animation timing - Spring physics curves */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Typography system */
+  --font-display: var(--font-plus-jakarta);
+  --font-body: var(--font-dm-sans);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-sans: var(--font-dm-sans);
+
+  /* Color mappings for Tailwind */
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+
+  /* Custom Tailwind color tokens */
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-dark: var(--accent-dark);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+
+  --color-border: var(--border);
+
+  /* Spacing - Professional grid system */
+  --space-xs: 0.25rem;     /* 4px */
+  --space-sm: 0.5rem;      /* 8px */
+  --space-md: 1rem;        /* 16px */
+  --space-lg: 1.5rem;      /* 24px */
+  --space-xl: 2rem;        /* 32px */
+  --space-2xl: 3rem;       /* 48px */
+
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 0.75rem;   /* 12px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2rem;      /* 32px */
+  --spacing-2xl: 3rem;     /* 48px */
+
+  /* Border radius - Friendly but professional */
+  --radius-sm: 0.5rem;     /* 8px */
+  --radius-md: 0.875rem;   /* 14px */
+  --radius-lg: 1rem;       /* 16px */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* NO dark mode - Light mode only for Modern Greenhouse aesthetic */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.9375rem;    /* 15px base for better readability */
+  line-height: 1.6;
+}
+
+/* Typography scale */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+h1 {
+  font-size: 2.25rem;      /* 36px */
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.875rem;     /* 30px */
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;       /* 24px */
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.25rem;      /* 20px */
+  font-weight: 600;
+}
+
+/* Monospace for numbers, codes, SKUs */
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar - Warm and minimal */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
